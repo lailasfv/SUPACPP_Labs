@@ -1,52 +1,77 @@
 Least squares: y = 0.126266x + 2.02628
-x: 1.31934 y_O: 2.19287y_E: 4.10954
-Expected error: 0.821908 Actual error y_O - y_E: -1.91667
-x: 4.05242 y_O: 2.53796y_E: 4.08629
-Expected error: 0.817258 Actual error y_O - y_E: -1.54833
-x: 3.24894 y_O: 2.43651y_E: 4.86559
-Expected error: 0.973118 Actual error y_O - y_E: -2.42908
-x: 0.969385 y_O: 2.14868y_E: 2.4481
-Expected error: 0.48962 Actual error y_O - y_E: -0.299422
-x: 0.182998 y_O: 2.04938y_E: 0.646154
-Expected error: 0.129231 Actual error y_O - y_E: 1.40323
-x: 4.90802 y_O: 2.64599y_E: 4.10111
-Expected error: 0.820222 Actual error y_O - y_E: -1.45512
-x: 2.31969 y_O: 2.31917y_E: 2.09662
-Expected error: 0.419324 Actual error y_O - y_E: 0.222555
-x: 2.8819 y_O: 2.39016y_E: 1.0905
-Expected error: 0.218101 Actual error y_O - y_E: 1.29966
-x: 3.09606 y_O: 2.4172y_E: 0.409003
-Expected error: 0.0818007 Actual error y_O - y_E: 2.0082
-x: 4.11942 y_O: 2.54642y_E: 0.0149667
-Expected error: 0.00299334 Actual error y_O - y_E: 2.53145
-x: 1.54503 y_O: 2.22136y_E: 2.24506
-Expected error: 0.449012 Actual error y_O - y_E: -0.0236981
-x: 2.7571 y_O: 2.3744y_E: 3.58836
-Expected error: 0.717673 Actual error y_O - y_E: -1.21396
-x: 4.61133 y_O: 2.60853y_E: 2.61481
-Expected error: 0.522962 Actual error y_O - y_E: -0.00627981
-x: 2.13159 y_O: 2.29542y_E: 0.599773
-Expected error: 0.119955 Actual error y_O - y_E: 1.69565
-x: 0.387555 y_O: 2.07521y_E: 3.63403
-Expected error: 0.726806 Actual error y_O - y_E: -1.55882
-x: 2.13949 y_O: 2.29642y_E: 3.38681
-Expected error: 0.677361 Actual error y_O - y_E: -1.09039
-x: 2.05462 y_O: 2.28571y_E: 2.00569
-Expected error: 0.401138 Actual error y_O - y_E: 0.280016
-x: 4.64078 y_O: 2.61225y_E: 2.65243
-Expected error: 0.530486 Actual error y_O - y_E: -0.0401813
-x: 4.36456 y_O: 2.57737y_E: 0.132048
-Expected error: 0.0264095 Actual error y_O - y_E: 2.44532
-x: 4.3233 y_O: 2.57216y_E: 1.63762
-Expected error: 0.327525 Actual error y_O - y_E: 0.934542
-x: 3.54669 y_O: 2.4741y_E: 4.15003
-Expected error: 0.830006 Actual error y_O - y_E: -1.67593
-x: 4.52995 y_O: 2.59825y_E: 4.89828
-Expected error: 0.979656 Actual error y_O - y_E: -2.30003
-x: 0.408603 y_O: 2.07787y_E: 2.39641
-Expected error: 0.479282 Actual error y_O - y_E: -0.31854
-x: 1.4242 y_O: 2.20611y_E: 1.46115
-Expected error: 0.292231 Actual error y_O - y_E: 0.744955
-x: 2.60874 y_O: 2.35567y_E: 0.0448187
-Expected error: 0.00896374 Actual error y_O - y_E: 2.31085
-Chi squared calculated error: 791244
+x: 1.31934 y_O: 2.19287 y_E: 4.10954
+Expected error: 0.821908
+Actual error y_O - y_E: -1.91667
+x: 4.05242 y_O: 2.53796 y_E: 4.08629
+Expected error: 0.817258
+Actual error y_O - y_E: -1.54833
+x: 3.24894 y_O: 2.43651 y_E: 4.86559
+Expected error: 0.973118
+Actual error y_O - y_E: -2.42908
+x: 0.969385 y_O: 2.14868 y_E: 2.4481
+Expected error: 0.48962
+Actual error y_O - y_E: -0.299422
+x: 0.182998 y_O: 2.04938 y_E: 0.646154
+Expected error: 0.129231
+Actual error y_O - y_E: 1.40323
+x: 4.90802 y_O: 2.64599 y_E: 4.10111
+Expected error: 0.820222
+Actual error y_O - y_E: -1.45512
+x: 2.31969 y_O: 2.31917 y_E: 2.09662
+Expected error: 0.419324
+Actual error y_O - y_E: 0.222555
+x: 2.8819 y_O: 2.39016 y_E: 1.0905
+Expected error: 0.218101
+Actual error y_O - y_E: 1.29966
+x: 3.09606 y_O: 2.4172 y_E: 0.409003
+Expected error: 0.0818007
+Actual error y_O - y_E: 2.0082
+x: 4.11942 y_O: 2.54642 y_E: 0.0149667
+Expected error: 0.00299334
+Actual error y_O - y_E: 2.53145
+x: 1.54503 y_O: 2.22136 y_E: 2.24506
+Expected error: 0.449012
+Actual error y_O - y_E: -0.0236981
+x: 2.7571 y_O: 2.3744 y_E: 3.58836
+Expected error: 0.717673
+Actual error y_O - y_E: -1.21396
+x: 4.61133 y_O: 2.60853 y_E: 2.61481
+Expected error: 0.522962
+Actual error y_O - y_E: -0.00627981
+x: 2.13159 y_O: 2.29542 y_E: 0.599773
+Expected error: 0.119955
+Actual error y_O - y_E: 1.69565
+x: 0.387555 y_O: 2.07521 y_E: 3.63403
+Expected error: 0.726806
+Actual error y_O - y_E: -1.55882
+x: 2.13949 y_O: 2.29642 y_E: 3.38681
+Expected error: 0.677361
+Actual error y_O - y_E: -1.09039
+x: 2.05462 y_O: 2.28571 y_E: 2.00569
+Expected error: 0.401138
+Actual error y_O - y_E: 0.280016
+x: 4.64078 y_O: 2.61225 y_E: 2.65243
+Expected error: 0.530486
+Actual error y_O - y_E: -0.0401813
+x: 4.36456 y_O: 2.57737 y_E: 0.132048
+Expected error: 0.0264095
+Actual error y_O - y_E: 2.44532
+x: 4.3233 y_O: 2.57216 y_E: 1.63762
+Expected error: 0.327525
+Actual error y_O - y_E: 0.934542
+x: 3.54669 y_O: 2.4741 y_E: 4.15003
+Expected error: 0.830006
+Actual error y_O - y_E: -1.67593
+x: 4.52995 y_O: 2.59825 y_E: 4.89828
+Expected error: 0.979656
+Actual error y_O - y_E: -2.30003
+x: 0.408603 y_O: 2.07787 y_E: 2.39641
+Expected error: 0.479282
+Actual error y_O - y_E: -0.31854
+x: 1.4242 y_O: 2.20611 y_E: 1.46115
+Expected error: 0.292231
+Actual error y_O - y_E: 0.744955
+x: 2.60874 y_O: 2.35567 y_E: 0.0448187
+Expected error: 0.00896374
+Actual error y_O - y_E: 2.31085
+Chi squared calculated error: 791245

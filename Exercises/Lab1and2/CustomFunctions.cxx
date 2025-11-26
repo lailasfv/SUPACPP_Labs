@@ -8,6 +8,27 @@
 #include <algorithm>
 using namespace std;
 
+
+void saveData(string filename, vector<double>& data){
+    // Task 2 and 4 files require only one vector to be saved
+    string outFile = filename;
+    ofstream outStream;
+
+    outStream.open(filename);
+
+    if (!outStream.is_open()){
+        cout << "Error opening file: " << filename << endl;
+        exit (1);
+    }
+    else{
+        cout << "Output file " << filename << " opened successfully!" << endl;
+        for (int i = 0; i < data.size(); i++){
+            outStream << data[i] << endl;
+        }
+    }
+    outStream.close();
+}
+
 void fileLoad(const string filename, vector<double>& x, vector<double>& y){
     // Loads 2D array with columns x, y into respective vectors
     string line;
@@ -46,22 +67,11 @@ void printLine(vector<double>& x, vector<double>& y){
 }
 
 void calcMagnitude(vector<double>& x, vector<double>& y){
-    double mag;
-    string outputFile = "magnitude.txt";
-    ofstream outStream;
-    outStream.open(outputFile);
-    if (!outStream.is_open()) {
-        cout << "Error opening file: " << outputFile << endl;
-        exit (1);
+    vector<double> mag;
+    for (int i = 0; i < x.size(); i++){
+        mag.push_back(sqrt(x[i]*x[i] + y[i] * y[i]));
     }
-    else{
-        cout << "Output file " << outputFile << " opened successfully!" << endl;
-        for (int i = 0; i < x.size(); i++){
-            outStream << sqrt(x[i]*x[i] + y[i] * y[i]) << endl;
-        }
-        cout << "Magnitudes successfully saved to " << outputFile << endl;
-        outStream.close();
-    }
+    saveData("magnitude.txt", mag);
 }
 
 void leastSq(vector<double>& x, vector<double>& y){
@@ -104,11 +114,10 @@ void leastSq(vector<double>& x, vector<double>& y){
     for (int k = 0; k < nPoints; k++){
         yLeastSq.push_back(p * x[k] + q);
         chiSq += (yLeastSq[k] - y[k])*(yLeastSq[k] - y[k])/(yErr[k]*yErr[k]);
-        squareStream << "x: " << x[k] << " y_O: " << yLeastSq[k] << "y_E: " << y[k] << endl;
-        squareStream << "Expected error: " << yErr[k] << " ";
+        squareStream << "x: " << x[k] << " y_O: " << yLeastSq[k] << " y_E: " << y[k] << endl;
+        squareStream << "Expected error: " << yErr[k] << endl;
         squareStream << "Actual error y_O - y_E: " << (yLeastSq[k] - y[k]) << endl;
-        //cout << y[k] << endl; 
-        //cout << yLeastSq[k] << endl;
+
     }
     squareStream << "Chi squared calculated error: " << chiSq << endl;
     squareStream.close();
@@ -124,21 +133,11 @@ double recursivePower(double a, int b){
 }
 
 void xPowerY(vector<double>& x, vector<double>& y){
-    string powerFile = "x^y.txt";
-    ofstream powerStream;
-    powerStream.open(powerFile);
-    
-    if (!powerStream.is_open()){
-        cout << "Error opening file: " << powerFile << endl;
-        exit(1);
-    }
-    else{
-        cout << "Output file " << powerFile << " opened successfully!" << endl;
-        for (int i = 0; i < x.size(); i++){
-            powerStream << recursivePower(x[i], int(y[i])) << endl;
-        }
-        cout << "Power data successfully saved to " << powerFile << endl;
-    }
-    powerStream.close();
 
+    vector<double> power;
+    for (int i = 0; i < x.size(); i++){
+        power.push_back(recursivePower(x[i], int(y[i])));
+    }
+    saveData("x^y.txt", power);
+    cout << "x^y calculated successfully and saved to x^y.txt" << endl;
 }
