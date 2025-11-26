@@ -5,6 +5,7 @@
 #include <vector>
 #include <sstream>
 #include <math.h>
+#include <algorithm>
 using namespace std;
 
 void fileLoad(const string filename, vector<double>& x, vector<double>& y){
@@ -84,6 +85,60 @@ void leastSq(vector<double>& x, vector<double>& y){
     }
     double p = (nPoints*xy - xsum*ysum)/(nPoints*xsq-xsum*xsum);
     double q = (xsq*ysum - xy*xsum)/(nPoints*xsq - xsum*xsum);
-    cout << "p = " << p << endl;
-    cout << "q = " << q << endl;
+
+    string outFile = "Least squares test.txt";
+    ofstream squareStream;
+    squareStream.open(outFile);
+
+    if (!squareStream.is_open()) {
+        cout << "Error opening file " << outFile << endl;
+        exit(1);
+    }
+    else{
+        cout << "Output file " << outFile << " opened successfully!" << endl;
+    }
+
+    squareStream << "Least squares: y = " << p << "x + " << q << endl;
+    vector<double> yLeastSq;
+    double chiSq;
+    for (int k = 0; k < nPoints; k++){
+        yLeastSq.push_back(p * x[k] + q);
+        chiSq += (yLeastSq[k] - y[k])*(yLeastSq[k] - y[k])/(yErr[k]*yErr[k]);
+        squareStream << "x: " << x[k] << " y_O: " << yLeastSq[k] << "y_E: " << y[k] << endl;
+        squareStream << "Expected error: " << yErr[k] << " ";
+        squareStream << "Actual error y_O - y_E: " << (yLeastSq[k] - y[k]) << endl;
+        //cout << y[k] << endl; 
+        //cout << yLeastSq[k] << endl;
+    }
+    squareStream << "Chi squared calculated error: " << chiSq << endl;
+    squareStream.close();
+    cout << "Least squares analysed data saved to " << outFile << endl;
+
+}
+
+double recursivePower(double a, int b){
+    if (b == 0){
+        return a;
+    }
+    return recursivePower(a, b-1);
+}
+
+void xPowerY(vector<double>& x, vector<double>& y){
+    string powerFile = "x^y.txt";
+    ofstream powerStream;
+    powerStream.open(powerFile);
+    
+    if (!powerStream.is_open()){
+        cout << "Error opening file: " << powerFile << endl;
+        exit(1);
+    }
+    else{
+        cout << "Output file " << powerFile << " opened successfully!" << endl;
+        for (int i = 0; i < x.size(); i++){
+            powerStream << recursivePower(x[i], int(y[i])) << endl;
+        }
+        cout << "Power data successfully saved to " << powerFile << endl;
+    }
+    powerStream.close();
+
 }

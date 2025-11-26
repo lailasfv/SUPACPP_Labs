@@ -124,7 +124,7 @@ int main () {
             }
             case 4:{
                 cout << "You have chosen option 4" << endl;
-                cout << "This function is not set up yet" << endl;
+                xPowerY(x, y);
                 break;
             }
             case 5:{
