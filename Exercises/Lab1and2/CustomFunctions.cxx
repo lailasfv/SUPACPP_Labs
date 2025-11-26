@@ -1,11 +1,13 @@
 //file operations
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
-#include "CustomFunctions.h"
+#include <sstream>
+#include <math.h>
 using namespace std;
 
-/*void fileLoad(const string filename, vector<double>& x, vector<double>& y){
+void fileLoad(const string filename, vector<double>& x, vector<double>& y){
     // Loads 2D array with columns x, y into respective vectors
     string line;
     ifstream datafile(filename, ios::in);
@@ -25,9 +27,8 @@ using namespace std;
     }
     datafile.close();
 }
-/**/
 
-/*void printLine(vector<double>& x, vector<double>& y){
+void printLine(vector<double>& x, vector<double>& y){
     cout << "Please enter how many lines you'd like to print" << endl;
     int N;
     string N_input;
@@ -41,9 +42,9 @@ using namespace std;
         cout << "x = " << x[i] << " ";
         cout << "y = " << y[i] << endl;
     }
-}*/
+}
 
-/*void calcMagnitude(vector<double>& x, vector<double>& y){
+void calcMagnitude(vector<double>& x, vector<double>& y){
     double mag;
     string outputFile = "magnitude.txt";
     ofstream outStream;
@@ -60,9 +61,9 @@ using namespace std;
         cout << "Magnitudes successfully saved to " << outputFile << endl;
         outStream.close();
     }
-}*/
+}
 
-/*void leastSq(vector<double>& x, vector<double>& y){
+void leastSq(vector<double>& x, vector<double>& y){
     // Error file loaded only within this func, otherwise unnecessary
     vector<double> xErr;
     vector<double> yErr;
@@ -85,58 +86,4 @@ using namespace std;
     double q = (xsq*ysum - xy*xsum)/(nPoints*xsq - xsum*xsum);
     cout << "p = " << p << endl;
     cout << "q = " << q << endl;
-}*/
-
-int main () {
-    vector<double> x;
-    vector<double> y;
-    // Input file will need to be loaded regardless of choice
-    fileLoad("input2D_float.txt", x, y);
-    cout << "Data file loaded successfully!" << endl;
-
-    int choice;
-    bool go = true;
-
-    while(go){
-        cout << "Please select one of the following options:" << endl;
-        cout << "1: Print N lines of data file" << endl;
-        cout << "2: Calculate magnitude of data points" << endl;
-        cout << "3: Assess least squares fitting" << endl;
-        cout << "4: Calculate x^y for each data point" << endl;
-        cout << "5: Exit the program" << endl;
-        cin >> choice;
-
-        switch (choice) {
-            case 1:{
-                cout << "You have chosen option 1" << endl;
-                printLine(x, y);
-                break;
-            }
-            case 2:{
-                cout << "You have chosen option 2" << endl;
-                calcMagnitude(x, y);
-                break;
-            }
-            case 3:{
-                cout << "You have chosen option 3" << endl;
-                leastSq(x, y);
-                break;
-            }
-            case 4:{
-                cout << "You have chosen option 4" << endl;
-                cout << "This function is not set up yet" << endl;
-                break;
-            }
-            case 5:{
-                cout << "Exiting the program" << endl;
-                exit(1);
-            }
-            default:{
-                cout << "Invalid input" << endl;
-                go = false;
-                break;
-            }
-        }
-    }
-
 }
