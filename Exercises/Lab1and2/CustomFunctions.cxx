@@ -125,18 +125,19 @@ void leastSq(vector<double>& x, vector<double>& y){
 
 }
 
-double recursivePower(double a, int b){
-    if (b == 0){
-        return a;
+double recursivePower(double aNew, double a, int b){
+    if (b == 1 or b == 0){
+        return aNew;
     }
-    return recursivePower(a, b-1);
+    aNew = aNew*a;
+    return recursivePower(aNew, a, b-1);
 }
 
 void xPowerY(vector<double>& x, vector<double>& y){
 
     vector<double> power;
     for (int i = 0; i < x.size(); i++){
-        power.push_back(recursivePower(x[i], int(y[i])));
+        power.push_back(recursivePower(x[i], x[i], int(y[i])));
     }
     saveData("x^y.txt", power);
     cout << "x^y calculated successfully and saved to x^y.txt" << endl;
