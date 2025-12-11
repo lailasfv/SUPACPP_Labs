@@ -62,9 +62,19 @@ Integration by hand (output needed to normalise function when plotting)
 ###################
 */ 
 double FiniteFunction::integrate(int Ndiv){ //private
-  //ToDo write an integrator
-  return -99;  
+  // implementing the Simpson's rule of integration
+  if (Ndiv % 2 == 1) Ndiv++;  // requires even Ndiv
+
+  double h = (m_RMax - m_RMin)/Ndiv;
+  double sum = callFunction(m_RMin) + callFunction(m_RMax);
+
+  for (int i = 1; i < Ndiv; i++){
+    double x = m_RMin + i * h;
+    sum += callFunction(x) * (i % 2 == 0 ? 2 : 4);
+  }
+  return sum * h / 3.0;  
 }
+
 double FiniteFunction::integral(int Ndiv) { //public
   if (Ndiv <= 0){
     std::cout << "Invalid number of divisions for integral, setting Ndiv to 1000" <<std::endl;
