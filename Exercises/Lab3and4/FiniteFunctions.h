@@ -24,6 +24,10 @@ public:
   virtual void printInfo(); //Dump parameter info about the current function (Overridable)
   virtual double callFunction(double x); //Call the function with value x (Overridable)
 
+  //These two functions allow for metropolis algorithm to be inherited without repeating code
+  virtual double evaluate(double x) const = 0;
+  std::vector<double> metropolis(double x0, int n_samples, double stdev, int seed) const;
+
   //Protected members can be accessed by child classes but not users
 protected:
   double m_RMin;

@@ -12,7 +12,7 @@ class normFunc : public FiniteFunction {
        normFunc();  // inherited empty constructor
        normFunc(double range_min, double range_max, double mean, double stdev, std::string outfile);
        double callFunction(double x);
-       double normalDist(double x);
+       double evaluate(double x) const override;
        double mean;
        double stdev;
 
@@ -27,7 +27,7 @@ class cauchy : public FiniteFunction {
        cauchy();  // inherited empty constructor
        cauchy(double range_min, double range_max, double gamma, double x0, std::string outfile);
        double callFunction(double x);
-       double cauchyFunc(double x);
+       double evaluate(double x) const override;
        double gamma;
        double x0;
 
@@ -42,7 +42,7 @@ class crystal : public FiniteFunction {
        crystal();  // inherited empty constructor
        crystal(double range_min, double range_max, double lowN, double alpha, double sigma, double xHat, std::string outfile);
        double callFunction(double x); 
-       double crystalBall(double x);
+       double evaluate(double x) const override;
        double lowN;
        double alpha;
        double sigma;

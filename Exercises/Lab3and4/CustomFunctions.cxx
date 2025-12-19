@@ -5,6 +5,7 @@
 #include <cmath>
 // #include "FiniteFunctions.h"
 #include "CustomFunctions.h"
+#include <random>
 #include <filesystem> //To check extensions in a nice way
 
 using std::filesystem::path;
@@ -20,7 +21,7 @@ normFunc::normFunc(double range_min, double range_max, double mean, double stdev
     this->checkPath(outfile);
 }
 
-double normFunc::normalDist(double x){
+double normFunc::evaluate(double x) const{
     const double inv_sqrt_2pi = 1.0/ std::sqrt(2.0 * M_PI);
     double pow = (x - m_mean) / m_stdev;  // power in exponent
 
@@ -28,7 +29,7 @@ double normFunc::normalDist(double x){
 }
 
 // for normFunc to call the normal distribution function instead of invxsquared when integrating
-double normFunc::callFunction(double x){return this->normalDist(x);}
+double normFunc::callFunction(double x){return this->evaluate(x);}
 
 
 
@@ -42,13 +43,13 @@ cauchy::cauchy(double range_min, double range_max, double x0, double gamma, std:
     this->checkPath(outfile);
 }
 
-double cauchy::cauchyFunc(double x){
+double cauchy::evaluate(double x) const{
     double denom = (x - m_x0) * (x - m_x0) + m_gamma * m_gamma;
     return (m_gamma / (M_PI * denom));
 }
 
 // for cauchy to call correct function
-double cauchy::callFunction(double x){return this->cauchyFunc(x);};
+double cauchy::callFunction(double x){return this->evaluate(x);};
 
 
 // Overloaded constructor for crystal ball distribution
@@ -63,7 +64,7 @@ crystal::crystal(double range_min, double range_max, double lowN, double alpha, 
     this->checkPath(outfile);
 }
 
-double crystal::crystalBall(double x){
+double crystal::evaluate(double x) const{
     const double sqrtPiOver2 = std::sqrt(M_PI / 2.0);
     const double sqrt2 = std::sqrt(2.0);
 
@@ -91,7 +92,7 @@ double crystal::crystalBall(double x){
 }
 
 // for crystal to call correct function
-double crystal::callFunction(double x){return this->crystalBall(x);};
+double crystal::callFunction(double x){return this->evaluate(x);};
 
 // To load mystery data file
 void fileLoad(const std::string filename, std::vector<double>& x){
@@ -107,86 +108,61 @@ void fileLoad(const std::string filename, std::vector<double>& x){
 }
 
 int main(){
+    // with tests below, the mystery data file appears to be either norm or crystal ball distribution
 
-    // NOTES TO COME BACK TO
-
-    // load in random generated data
-    // use user input for each test parameter to match to the generated data without recompiling each time
-    // (THIS INPUT WILL BE REMOVED LATER)
-
-    // implement metropolis algorithm...
-
+    // parameters for function fitting
     int nPoints = 1000;
-
     double min = -10.0;
     double max = 10.0;
 
+    // parameters for sample generation
+    double sample_x0 = 1.0;
+    double sampleStd = 5.0;
+    int seed = 32045;  // changes random seed for any metropolis algorithm called
+
+    // loading in mystery data file to vector x
     std::vector<double> x;
     fileLoad("./Outputs/data/MysteryData03420.txt", x);
 
-    std::string inputMean;
-    std::string inputStd;
-
-    std::cout << "Choose mean for normal distribution" << std::endl;
-    std::cin >> inputMean;
-    double mean = stod(inputMean);
-
-    std::cout << "Choose deviation for normal distribution" << std::endl;
-    std::cin >> inputStd;
-    double std = stod(inputStd);
-
+    // -------------------------------------
+    // testing normal distribution
+    double mean = 1.0;
+    double std = 3.0;
     normFunc nTest(min, max, mean, std, "normtest");
+    auto samples = nTest.metropolis(sample_x0, nPoints, sampleStd, seed);
+    
     nTest.integral(nPoints);
-    nTest.printInfo();
     nTest.plotFunction();
-    nTest.plotData(x, nPoints, true);
+    // nTest.plotData(x, nPoints, true);
+    nTest.plotData(samples, nPoints, false);
 
-
-    std::string inputX0;
-    std::string inputGamma;
-
-    std::cout << "Choose x0 for cauchy distribution" << std::endl;
-    std::cin >> inputX0;
-    double x0 = stod(inputX0);
-
-    std::cout << "Choose gamma for cauchy distribution" << std::endl;
-    std::cin >> inputGamma;
-    double gamma = stod(inputGamma);
-
+    // -------------------------------------
+    // testing cauchy distribution
+    // mystery data file
+    double x0 = 1.0;
+    double gamma = 3;
 
     cauchy cTest(min, max, x0, gamma, "cauchytest");
+    auto samplesC = cTest.metropolis(sample_x0, nPoints, sampleStd, seed);
     cTest.integral(nPoints);
-    cTest.printInfo();
     cTest.plotFunction();
     cTest.plotData(x, nPoints, true);
+    cTest.plotData(samplesC, nPoints, false);
 
-
-    std::string inputN;
-    std::string inputAlpha;
-    std::string inputXHat;
-    std::string inputSigma;
-
-    std::cout << "Choose n for crystal ball distribution" << std::endl;
-    std::cin >> inputN;
-    double n = stod(inputN);
-
-    std::cout << "Choose alpha for crystal ball distribution" << std::endl;
-    std::cin >> inputAlpha;
-    double alpha = stod(inputAlpha);
-
-    std::cout << "Choose mean for crystal ball distribution" << std::endl;
-    std::cin >> inputXHat;
-    double xHat = stod(inputXHat);
-
-    std::cout << "Choose deviation for crystal ball distribution" << std::endl;
-    std::cin >> inputSigma;
-    double sigma = stod(inputSigma);
+    // -------------------------------------
+    // testing crystal ball distribution
+    //mystery data file
+    double n = 3.0;
+    double alpha = 3.0;
+    double xHat = 1.0;
+    double sigma = 3.0;
 
     crystal c2Test(min, max, n, alpha, xHat, sigma, "crystaltest");
+    auto samplesC2 = c2Test.metropolis(sample_x0, nPoints, sampleStd, seed);
     c2Test.integral(nPoints);
-    c2Test.printInfo();
     c2Test.plotFunction();
     c2Test.plotData(x, nPoints, true);
+    c2Test.plotData(samplesC2, nPoints, false);
 
     return 0;
 }

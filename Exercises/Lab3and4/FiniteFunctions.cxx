@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
+#include <random>
 #include "FiniteFunctions.h"
 #include <filesystem> //To check extensions in a nice way
 
@@ -55,6 +57,38 @@ double FiniteFunction::rangeMax() {return m_RMax;};
 */ 
 double FiniteFunction::invxsquared(double x) {return 1/(1+x*x);};
 double FiniteFunction::callFunction(double x) {return this->invxsquared(x);}; //(overridable)
+
+std::vector<double> FiniteFunction::metropolis(  // this targets the function passed in and can be used by all child classes
+    double x0,
+    int n_samples,
+    double stdev,
+    int seed
+) const {
+    std::vector<double> samples;
+    samples.reserve(n_samples);  // reserves memory
+
+    std::random_device rd;
+    std::mt19937 gen(rd()); //seed number can be redefined when calling
+    std::normal_distribution<double> normDist(0, stdev);  // having mean = 0 means this doesn't need to be updated
+    std::uniform_real_distribution<double> uniDist(0, 1);
+
+    double x_i = x0; 
+    double fx = evaluate(x_i);
+
+    for (int i = 0; i < n_samples; i++) {
+        double y = x_i + normDist(gen);  // effectively makes the mean = x_i
+        double fy = evaluate(y);
+
+        double alpha = fy/fx;
+
+        if (uniDist(gen) < alpha) {
+            x_i = y;
+            fx = fy;
+        }
+        samples.push_back(x_i);
+    }
+    return samples;
+}
 
 /*
 ###################
