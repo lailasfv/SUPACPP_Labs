@@ -133,7 +133,7 @@ int main(){
     
     nTest.integral(nPoints);
     nTest.plotFunction();
-    // nTest.plotData(x, nPoints, true);
+    nTest.plotData(x, nPoints, true);
     nTest.plotData(samples, nPoints, false);
 
     // -------------------------------------
